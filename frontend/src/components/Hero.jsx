@@ -33,7 +33,12 @@ const Hero = () => {
             A starter frontend for building web3 interfaces with <b className='text-purple-600'>React,</b> <b className='text-pink-400'>TailwindCSS,</b> and <b className='text-blue-400'>Web3js,</b> to help you develop your DAPP.
           </p>
           <div className="flex pt-4">
-          <Link to={'/presale'} className='btn bg-gradient-to-r from-pink-400 to-purple-400 to-90% hover:saturate-0 border-0 btn-lg rounded-lg text-white'>
+          <Link 
+            to={'https://github.com/iamyourdre/Web3-Starter-Template'} 
+            className='btn bg-gradient-to-r from-pink-400 to-purple-400 to-90% hover:saturate-0 border-0 btn-lg rounded-lg text-white'
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
             <FaGithub/>
             Fork on Github
           </Link>
