@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import useWallet from '../hooks/useWallet';
 import Loading from './Loading';
-import { FaStar } from 'react-icons/fa';
-import { use } from 'react';
+import { FaLinkSlash, FaWallet } from 'react-icons/fa6';
+import { CiCircleCheck } from "react-icons/ci";
 
 const ConnectWallet = () => {
   const { wallet, connectMetamask, disconnectWallet, loading, error, setError } = useWallet();
@@ -17,11 +17,13 @@ const ConnectWallet = () => {
     },
   ];
   
-  // useEffect(() => {
-  //   if (wallet) {
-  //     document.getElementById('connect_modal').close();
-  //   }
-  // }, [wallet]);
+  useEffect(() => {
+    if (wallet) {
+      setTimeout(() => {
+        document.getElementById('connect_modal').close();
+      }, 1000);
+    }
+  }, [wallet]);
 
   useEffect(() => {
     if(error) {
@@ -31,33 +33,41 @@ const ConnectWallet = () => {
 
   return (
     <>
-      <button className="btn btn-neutral rounded-full" onClick={()=>{
-        document.getElementById('connect_modal').showModal();
-        setError(null);
-      }}>
-        Connect Wallet
-      </button>
+
+      {wallet ? (
+        <button className="btn btn-neutral btn-outline rounded-lg flex" onClick={()=>{
+          document.getElementById('connect_modal').showModal();
+          setError(null);
+        }}>
+          <FaWallet /> {wallet.slice(0, 5)}..{wallet.slice(-4)}
+        </button>
+      ) : (
+        <button className="btn btn-neutral rounded-lg" onClick={()=>{
+          document.getElementById('connect_modal').showModal();
+          setError(null);
+        }}>
+          Connect Wallet
+        </button>
+      )}
       
       <dialog id="connect_modal" className="modal h-screen">
         <div className="modal-box">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-5 top-5">✕</button>
+          </form>
 
           {!wallet && (
             <div className="flex flex-col gap-3">
-              {!loading && (
-                <form method="dialog">
-                  <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">✕</button>
-                </form>
-              )}
 
               {loading ? (
-                <div className="flex flex-col gap-4 border rounded-lg py-8 items-center justify-center">
-                  <div className="items-center justify-center flex">
+                <div className="flex flex-col gap-4 border rounded-lg py-8">
+                  <div className="items-center justify-center flex h-28">
                     {walletTypeSelected ? (
                       <img src={walletTypeSelected.icon} alt={walletTypeSelected.name} className='h-11 absolute z-10'/>
                     ): null}
                     <Loading addClass={'w-28 opacity-50'} />
                   </div>
-                  <span className='text-md text-gray-500 text-md'>
+                  <span className='text-md text-gray-500 text-md text-center'>
                     <p>Connecting to {walletTypeSelected ? walletTypeSelected.name : "Wallet"}</p>
                     <p>Please accept any request</p>
                   </span>
@@ -77,7 +87,6 @@ const ConnectWallet = () => {
                   </>
                 )
               }
-              
               <div className="flex flex-col gap-1 font-medium text-lg">
                 {walletTypes.map((walletType, index) => (
                   <button key={index} disabled={loading} onClick={() => {
@@ -98,20 +107,26 @@ const ConnectWallet = () => {
           )}
 
           {wallet && (
-            <div className="flex flex-col gap-4">
-              <form method="dialog">
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">✕</button>
-              </form>
-              <h1 className="font-semibold text-xl">Connected Wallet</h1>
-              <div className="flex gap-2 items-center">
-                <FaStar className='text-yellow-400'/>
-                <span className='text-lg font-semibold'>
-                  {wallet}
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-4 border rounded-lg py-8">
+                <div className="items-center justify-center flex h-28">
+                  {/* {walletTypeSelected ? (
+                    <img src={walletTypeSelected.icon} alt={walletTypeSelected.name} className='h-11 absolute z-10'/>
+                  ): null} */}
+                  <CiCircleCheck className='text-8xl text-green-500' />
+                  {/* <Loading addClass={'w-28 opacity-50 text-purple-500'} /> */}
+                </div>
+                <span className='text-md text-gray-500 text-md text-center'>
+                  <p>Wallet Connected!</p>
+                  <p className='truncate underline'>{wallet}</p>
                 </span>
               </div>
-              <button className="btn btn-primary" onClick={disconnectWallet}>
-                Disconnect
-              </button>
+              <div className="flex flex-col gap-1 font-medium text-lg">
+                  <button disabled={loading} onClick={disconnectWallet} className={`flex items-center p-2.5 gap-2.5 rounded-lg text-red-500 hover:bg-red-500 hover:text-white border border-red-500`}>
+                    <FaLinkSlash className='h-11 ml-1' />
+                    <span className='text-left'>Disconnect Wallet</span>
+                  </button>
+              </div>
             </div>
           )}
 

@@ -34,7 +34,7 @@ const useWallet = () => {
         setLoading(false);
       }
     } else {
-      setError(error.message);
+      setError('You need to install MetaMask to connect to this app');
     }
   };
 

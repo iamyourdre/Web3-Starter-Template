@@ -6,10 +6,10 @@ import { FaGithub } from "react-icons/fa6";
 
 const Hero = () => {
   return (
-    <div className="grid grid-cols-5 pt-28 md:pt-0 items-center justify-center min-h-screen">
+    <div className="grid grid-cols-5 pt-28 md:pt-8 items-center justify-center min-h-screen">
       <div className="col-span-5 md:col-span-3">
         <div className="flex flex-col relative gap-3">
-          <p className="flex text-5xl lg:text-6xl font-extrabold">
+          <p className="flex text-5xl lg:text-7xl font-[1000]">
             <span className="absolute">
               Welcome To
               <span className="blur-xl block
@@ -29,11 +29,11 @@ const Hero = () => {
               <span className='relative -top-2.5'>Template</span>
             </span>
           </p>
-          <p className='text-xl'>
-            A starter frontend for building web3 interfaces with <b className='text-purple-600'>React,</b> <b className='text-pink-400'>Tailwind CSS,</b> and <b className='text-blue-400'>Web3js,</b> to help you quickly develop your DAPP with ease.
+          <p className='text-xl pr-6'>
+            A starter frontend for building web3 interfaces with <b className='text-purple-600'>React,</b> <b className='text-pink-400'>TailwindCSS,</b> and <b className='text-blue-400'>Web3js,</b> to help you develop your DAPP.
           </p>
           <div className="flex pt-4">
-          <Link to={'/presale'} className='btn bg-gradient-to-r from-pink-400 to-purple-400 to-90% btn-lg rounded-full text-white'>
+          <Link to={'/presale'} className='btn bg-gradient-to-r from-pink-400 to-purple-400 to-90% hover:saturate-0 border-0 btn-lg rounded-lg text-white'>
             <FaGithub/>
             Fork on Github
           </Link>
